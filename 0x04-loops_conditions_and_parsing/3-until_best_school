@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# uses a while loop to print ten time
+# uses a until loop to print ten time
 
 counter=0
 
-until [ $counter -gt 10 ]
+until [ $counter -ge 10 ]
 do 
     echo "Best School"
     counter=$((counter + 1))
