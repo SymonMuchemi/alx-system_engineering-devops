@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# dispalays PIDs of bash processes with the name bash
+# displays PIDs of bash processes with the name bash
 
-for pd in $(pidof bash)
-do 
-    echo "$pd bash"
-done
+pgrep -l bash
