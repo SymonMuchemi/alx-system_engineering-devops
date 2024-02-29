@@ -1,18 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Displays listening ports. Includes listening sockets too
+# + as the PID and name of the program to which each socket belongs.
 
-# Get listening sockets with netstat, filter out the header, and only show listening ports
-listening_sockets=$(netstat -tuln | awk 'NR > 2 && /LISTEN/')
-
-# Loop through each line of listening sockets
-while read -r line; do
-    # Extract the protocol, local address, and PID
-    protocol=$(echo "$line" | awk '{print $1}')
-    local_address=$(echo "$line" | awk '{print $4}')
-    pid=$(echo "$line" | awk '{print $NF}')
-
-    # Get the program name associated with the PID
-    program_name=$(ps -p "$pid" -o comm=)
-
-    # Display the listening port, PID, and program name
-    echo "Protocol: $protocol, Local Address: $local_address, PID: $pid, Program Name: $program_name"
-done <<< "$listening_sockets"
+netstat -l --program
