@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# create a private key with bit size 4096, named 'school' and pass phrase 'betty'
+ssh-keygen -t rsa -b 4096 -f school -N betty
