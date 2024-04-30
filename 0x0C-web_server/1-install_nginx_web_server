@@ -9,16 +9,10 @@ apt-get install nginx -y
 ufw allow 'Nginx HTTP'
 
 # create new document root directory
-mkdir -p /var/www/web-01/html
-
-# assign ownership to the logged in account
-chown -R $USER:$USER /var/www/web-01/html
-
-# ensure web root permissions
-chmod -R 755 /var/www
+mkdir -p /etc/nginx/html
 
 # create sample page for the site
-echo "Hello World" > /var/www/web-01/html/index.html
+echo "Hello World" > /etc/nginx/html/index.html
 
 # create server block and add directives
 printf %s "server {
