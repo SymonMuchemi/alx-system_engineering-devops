@@ -22,10 +22,10 @@ echo "Hello World" > /var/www/web-01/html/index.html
 
 # create server block and add directives
 printf %s "server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	root /var/www/web-01/html;
-	index index.html index.htm;
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /etc/nginx/html;
+        index index.html index.htm;
 }
 " > /etc/nginx/sites-available/default
 
