@@ -1,25 +1,19 @@
 #!/usr/bin/env bash
-# script to install nginx and configure a web-01 server
+# Installs Nginx with the following configurations:
+#+    Listens on port 80.
+#+    Returns a page containing "Hello World" when queried
+#++    at the root with a curl GET request.
 
-# install Nginx
-apt-get update -y
-apt-get install nginx -y
+apt-get update
+apt-get install -y nginx
 
-# adjust the firewall to allow port 80
-ufw allow 'Nginx HTTP'
-
-# create new document root directory
-mkdir -p /etc/nginx/html
-
-# create sample page for the site
+mkdir /etc/nginx/html
 echo "Hello World" > /etc/nginx/html/index.html
-
-# create server block and add directives
 printf %s "server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /etc/nginx/html;
-        index index.html index.htm;
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
 }
 " > /etc/nginx/sites-available/default
 
