@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# script to install nginx and configure a web-01 server
+
+# install Nginx
+apt-get update -y
+apt-get install nginx -y
+
+# adjust the firewall to allow port 80
+ufw allow 'Nginx HTTP'
+
+# create new document root directory
+mkdir -p /etc/nginx/html
+
+# create sample page for the site
+echo "Hello World" > /etc/nginx/html/index.html
+
+# create server block and add directives
+printf %s "server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /etc/nginx/html;
+        index index.html index.htm;
+
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+}
+" > /etc/nginx/sites-available/default
+
+service nginx restart
+
