@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-# fix the first server
-
-echo "FROM httpd:latest" > dockerfile
-echo "copy index.html /usr/local/apache2/htdocs/" >> dockerfile
-echo "Hello Holberton" > index.html
-
-docker build -t my-apache-image .
-docker run -d -p 8080:80 my-apache-image
