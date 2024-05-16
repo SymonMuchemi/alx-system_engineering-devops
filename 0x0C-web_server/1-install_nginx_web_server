@@ -4,7 +4,7 @@ apt-get update
 apt-get install -y nginx
 
 echo "Hello World" > /var/www/html/index.html
-printf %s "server {
+echo "server {
      listen      80 default_server;
      listen      [::]:80 default_server;
      root        /var/www/html;
