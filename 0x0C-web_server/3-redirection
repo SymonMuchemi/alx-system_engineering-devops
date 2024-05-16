@@ -9,6 +9,7 @@ apt-get install nginx -y
 ufw allow 'Nginx HTTP'
 
 # create new document root directory
+
 mkdir -p /etc/nginx/html
 
 # create 404 page for the site
@@ -18,7 +19,7 @@ echo "Ceci n'est pas une page" > /usr/share/nginx/html/404.html
 printf %s "server {
         listen 80 default_server;
         listen [::]:80 default_server;
-        root /etc/nginx/html;
+        root /var/www/html;
         index index.html index.htm;
 
         location /redirect_me {
