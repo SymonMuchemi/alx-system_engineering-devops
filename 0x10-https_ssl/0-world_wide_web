@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# script that displays some info related to a domain
+
+domain=$1
+subdomain=$2
+
+# get details without the subdomain specified
+display_for() {
+	dom=$1
+	sub=$2
+
+	record=$( dig "$sub"."$dom" +noall +answer | awk '{ print $4 }' )
+	ip=$( dig "$sub"."$dom" +noall +answer | awk '{ print $5 }' )
+
+	echo "The subdomain $sub is a $record record and points to $ip"
+}
+
+if [ $# -eq 2 ]
+then
+	display_for "$domain" "$subdomain"
+else
+	display_for "$domain" "www"
+	display_for "$domain" "lb-01"
+	display_for "$domain" "web-01"
+	display_for "$domain" "web-02"
+fi
