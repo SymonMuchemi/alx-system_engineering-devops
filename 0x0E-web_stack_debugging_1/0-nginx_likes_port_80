@@ -2,4 +2,4 @@
 # fix the port
 apt update
 apt install nginx
-service nginx start
+service nginx restart
