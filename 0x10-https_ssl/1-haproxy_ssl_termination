@@ -25,13 +25,14 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 frontend front_conf
-        bind *:443 ssl crt /etc/haproxy/cert/www.symonmuchemi.tech.pem
+        bind *:443 ssl crt /etc/haproxy/certs/www.symonmuchemi.tech.pem
         mode http
         option forwardfor
         http-request set-header X-Forwarded-Proto https if { ssl_fc }
-        default_backend backend1
+        default_backend webservers
 
-backend backend1
+backend webservers
         mode http
         balance roundrobin
-        server web-01 18.206.202.15:80 check
+        server web-01 54.157.149.106:80 check
+        server web-02 18.210.14.198:80 check
