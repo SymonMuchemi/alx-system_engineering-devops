@@ -25,6 +25,15 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 frontend front_conf
+    bind *:80
+    mode http
+    option forwardfor
+    reqadd X-Forwarded-Proto:\ http
+
+    # Redirect HTTP to HTTPS
+    redirect scheme https code 301 if !{ ssl_fc }
+
+frontend https-in
         bind *:443 ssl crt /etc/haproxy/certs/www.symonmuchemi.tech.pem
         mode http
         option forwardfor
