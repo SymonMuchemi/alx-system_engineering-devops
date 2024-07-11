@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # fix the port
 apt update
-apt install nginx
+apt install nginx -y
 service nginx restart
