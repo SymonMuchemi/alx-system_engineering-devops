@@ -8,7 +8,7 @@
 # The Bash script accepts one argument that is the password used to connect to the MySQL database
 
 # create a MySQL dump of all databases
-mysqldump -u root -p $1 --all-databases > backup.sql
+mysqldump --all-databases -u root --password="$1" > backup.sql
 
 # compress the MySQL dump file to a tar.gz archive
 tar -czvf $(date +%d-%m-%Y).tar.gz backup.sql
