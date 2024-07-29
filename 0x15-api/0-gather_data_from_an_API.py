@@ -1,33 +1,34 @@
 #!/usr/bin/python3
-"""Fetch information on employee's completed tasks"""
+"""
+place holder
+"""
 
 
 if __name__ == "__main__":
+
     import requests
     from sys import argv
-
     if len(argv) < 2:
         exit()
-
     baseUrl = "https://jsonplaceholder.typicode.com"
-    id = argv[1]
+    todos = requests.get(
+        "{}/todos?userId={}&completed=true"
+        .format(baseUrl, argv[1]))
     name = requests.get(
-        f"{baseUrl}/users?id={id}"
-    )
-    completed_todos = requests.get(
-        f"{baseUrl}/todos?usersId={id}&completed=true"
-    )
-    all_todos = requests.get(
-        f"{baseUrl}/todos?usersId={id}"
-    )
+        "{}/users?id={}"
+        .format(baseUrl, argv[1]))
+    name = name.json()
+    name = name[0]["name"]
+    todo = requests.get(
+        "{}/todos?userId={}".format(baseUrl, argv[1]))
+    todo = todo.json()
+    todo = len(todo)
+    todos = todos.json()
+    todo_list = []
 
-    employee_name = name.json()[0]['name']
-    done_todos = completed_todos.json()
-    done = len(completed_todos.json())
-    all = len(all_todos.json())
-
-    todos_list = [f"\t{x['title']}" for x in done_todos]
-    print(f"Employee {employee_name} is done with tasks({done}/{all})")
-
-    for todo in todos_list:
-        print(todo)
+    for x in todos:
+        todo_list.append("\t {}".format(x["title"]))
+    print("Employee {} is done with tasks({}/{}):"
+          .format(name, len(todos), todo))
+    for y in todo_list:
+        print(y)
