@@ -12,10 +12,10 @@ def number_of_subscribers(subreddit):
     Returns:
         int: number of subscribers
     """
-    
+
     if subreddit is None or not isinstance(subreddit, str):
         return 0
-    
+
     # https://www.reddit.com/r/programming/about.json
     base_url = f'https://www.reddit.com/r/{subreddit}/about.json'
     response = requests.get(
@@ -27,7 +27,8 @@ def number_of_subscribers(subreddit):
     if response.status_code >= 300:
         return 0
 
-    subs = response.json()
-    n = subs.get('data').get('subscribers')
-
-    return n
+    try:
+        subs = response.json()
+        return subs.get('data').get('subscribers')
+    except Exception:
+        return 0
