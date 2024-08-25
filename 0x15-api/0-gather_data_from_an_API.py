@@ -60,7 +60,7 @@ def get_tasks(base_url, user_id):
         dict: json format response
     """
     url = f'{base_url}/todos?userId={user_id}'
-    
+
     return fetch_data(url)
 
 
