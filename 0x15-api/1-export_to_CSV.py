@@ -33,7 +33,7 @@ def get_username(base_url, user_id):
     url = f'{base_url}/users?id={user_id}'
     user_data = fetch_data(url)
 
-    return user_data[0]['name'] if user_data else None
+    return user_data[0]['username'] if user_data else None
 
 
 def get_completed_tasks(base_url, user_id):
