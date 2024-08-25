@@ -102,7 +102,6 @@ def write_to_csv(base_url, user_id):
 
     with open(file_name, mode='w+', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fields)
-        # writer.writeheader()
 
         writer.writerows(data)
 
