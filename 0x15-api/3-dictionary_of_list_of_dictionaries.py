@@ -123,9 +123,9 @@ def prep_employee_data(base_url, user_id):
 
     for item in data:
         item = dict(
+            username=user_name,
             task=item['title'],
             completed=item['completed'],
-            username=user_name,
         )
         data_list.append(item)
 
