@@ -12,15 +12,18 @@ def number_of_subscribers(subreddit):
     Returns:
         int: number of subscribers
     """
-    base_url = 'https://www.reddit.com/r/'
+    # https://www.reddit.com/r/programming/about.json
+    base_url = f'https://www.reddit.com/r/{subreddit}/about.json'
     response = requests.get(
-        f'{base_url}{subreddit}/about.json',
-        headers={
-            'User-Agent': 'My-User-Agent'
-            },
+        base_url,
+        # headers={
+        #     'User-Agent': 'My-User-Agent'
+        #     },
         allow_redirects=False)
+    
+    # print(response.status_code)
 
-    if response.status_code >= 300:
+    if response.status_code == 404:
         return 0
 
     subs = response.json()
