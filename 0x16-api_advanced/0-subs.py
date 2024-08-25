@@ -13,7 +13,7 @@ def number_of_subscribers(subreddit):
         int: number of subscribers
     """
     
-    if subreddit is None:
+    if subreddit is None or not isinstance(subreddit, str):
         return 0
     
     # https://www.reddit.com/r/programming/about.json
