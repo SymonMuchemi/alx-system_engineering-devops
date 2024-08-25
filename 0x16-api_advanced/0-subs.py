@@ -20,8 +20,6 @@ def number_of_subscribers(subreddit):
             'User-Agent': 'My-User-Agent'
             },
         allow_redirects=False)
-    
-    # print(response.status_code)
 
     if response.status_code >= 300:
         return 0
