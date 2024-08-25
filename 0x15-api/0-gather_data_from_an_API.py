@@ -49,6 +49,21 @@ def get_completed_tasks(base_url, user_id):
     return fetch_data(url)
 
 
+def get_tasks(base_url, user_id):
+    """fetch user tasks data
+
+    Args:
+        base_url (str): path to tasks data
+        user_id (int): user's id
+
+    Returns:
+        dict: json format response
+    """
+    url = f'{base_url}/todos?userId={user_id}'
+    
+    return fetch_data(url)
+
+
 def get_total_task_count(base_url, user_id):
     """get the total number of tasks done by a user
 
