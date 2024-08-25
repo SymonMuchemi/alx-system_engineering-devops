@@ -2,6 +2,7 @@
 """
 place holder
 """
+import csv
 import requests
 from sys import argv
 
@@ -65,22 +66,45 @@ def get_total_task_count(base_url, user_id):
     return len(all_tasks)
 
 
-def print_task_summary(name, completed_tasks, total_tasks):
-    """print a summary of a user's completed tasks
+def get_data_for_csv(base_url, user_id):
+    """create dict to add to csv
 
     Args:
-        name (str): name of the user
-        completed_tasks (dict): tasks completed data
-        total_tasks (int): number of completed tasks
-    """
-    completed_len = len(completed_tasks)
-    todo_list = []
+        base_url (str): path to data
+        user_id (int): user's id
 
-    for task in completed_tasks:
-        todo_list.append(task['title'])
-    print(f'Employee {name} is done with tasks({completed_len}/{total_tasks})')
-    for task in todo_list:
-        print(f'\t{task}')
+    Returns:
+        list: tasks data
+    """
+    url = f'{base_url}/todos?userId={user_id}'
+    user_name = get_username(base_url, user_id)
+
+    data = fetch_data(url)
+    data_list = []
+
+    for item in data:
+        item = dict(
+            USER_ID=user_id,
+            USERNAME=user_name,
+            TASK_COMPLETED_STATUS=item['completed'],
+            TASK_TITLE=item['title']
+        )
+        data_list.append(item)
+
+    return data_list
+
+
+def write_to_csv(base_url, user_id):
+    file_name = f'{user_id}.csv'
+    data = get_data_for_csv(base_url, user_id)
+
+    fields = ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"]
+
+    with open(file_name, mode='w+', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=fields)
+        writer.writeheader()
+
+        writer.writerows(data)
 
 
 if __name__ == "__main__":
@@ -98,4 +122,4 @@ if __name__ == "__main__":
     completed_tasks = get_completed_tasks(base_url, user_id)
     total_tasks = get_total_task_count(base_url, user_id)
 
-    print_task_summary(name, completed_tasks, total_tasks)
+    write_to_csv(base_url, user_id)
