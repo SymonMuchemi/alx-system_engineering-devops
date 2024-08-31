@@ -12,10 +12,10 @@ def top_ten(subreddit):
         headers={'User-Agent': 'Custon'},
         params={'limit': 10}
     )
-    
+
     if response.status_code == 200:
         data = response.json().get('data').get('children')
         for item in data:
             print(item.get('data').get('title'))
-    else: 
+    else:
         print(None)
